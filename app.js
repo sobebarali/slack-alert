@@ -9,14 +9,21 @@ app.use(bodyParser.json());
 
 app.post('/test', (req, res) => {
     const { Email, Type } = req.body;
-    if (Type === "SpamNotification") {
-        slack.send("Spam detected from " + Email).then(() => {
-            console.log('Message sent');
-        }).catch((err) => {
-            console.log('Error sending message', err);
-        });
+    try {
+        if (Type === "SpamNotification") {
+            slack.send("Spam detected from " + Email).then(() => {
+                console.log('Message sent');
+            }).catch((err) => {
+                console.log('Error sending message', err);
+                res.status(500).json({ error: 'Error sending message' });
+            });
+        } else {
+            res.status(400).json({ error: 'Invalid request type' });
+        }
+    } catch (err) {
+        console.log('Error handling request', err);
+        res.status(500).json({ error: 'Internal server error' });
     }
-    res.status(200).json({ message: 'OK' });
 });
 
 app.listen(3000, () => {
