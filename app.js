@@ -7,6 +7,10 @@ const slack = require("slack-notify")(webhookUrl);
 const app = express();
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Slack API test app!");
+});
+
 app.post("/test", (req, res) => {
   const { Email, Type } = req.body;
   try {
