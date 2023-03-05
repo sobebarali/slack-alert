@@ -15,7 +15,8 @@ This endpoint will send a alert message to the channel configured in the Slack A
 
 ## Deploy
 
-- Create a new app in Railway
+- Register in Render.com
+- Create a new web service
 - Add a new environment variable `SLACK_WEBHOOK_UR` with the URL of the incoming webhook of Slack API
 - Deploy the project
 
